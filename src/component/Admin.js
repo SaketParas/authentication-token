@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link, Redirect} from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 class Admin extends Component {
     constructor(props) {
@@ -7,17 +7,17 @@ class Admin extends Component {
         const token = localStorage.getItem("token")
 
         let loggedIn = true
-        if(token == null){
+        if (token == null) {
             loggedIn = false
         }
         this.state = {
-             loggedIn
+            loggedIn
         }
     }
-    
+
     render() {
-        if(this.state.loggedIn === false){
-            return <Redirect to = '/'/>
+        if (this.state.loggedIn === false) {
+            return <Redirect to='/' />
         }
         return (
             <div>

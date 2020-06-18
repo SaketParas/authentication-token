@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 class Login extends Component {
     constructor(props) {
@@ -7,33 +8,40 @@ class Login extends Component {
         const token = localStorage.getItem("token")
 
         let loggedIn = true
-        if(token == null){
+        if (token == null) {
             loggedIn = false
         }
         this.state = {
             username: '',
             password: '',
+            message: '',
+            login_username : this.props.xSelected.username,
+            login_password : this.props.xSelected.password,
             loggedIn
         }
     }
     onChange = (e) => {
-        this.setState({[e.target.name] : e.target.value})
+        this.setState({ [e.target.name]: e.target.value })
     }
     submitForm = (e) => {
         e.preventDefault();
         console.log(this.state);
-        const {username, password} = this.state
+        const { username, password } = this.state
         //login logic
-        if(username === "A" && password === "B"){
+        if (username === this.state.login_username && password === this.state.login_password) {
             localStorage.setItem("token", "random")
             this.setState({
-                loggedIn : true,
+                loggedIn: true,
             })
+        }
+        else{
+            alert('incorrect userName OR Password')
         }
     }
     render() {
-        if(this.state.loggedIn){
-            return <Redirect to='/Admin'/>
+        console.log(this.props);
+        if (this.state.loggedIn) {
+            return <Redirect to='/Admin' />
         }
         return (
             <div className="container mt-5">
@@ -51,10 +59,10 @@ class Login extends Component {
                             </div>
                             <button type="submit" class="btn btn-outline-danger mt-3">Submit</button>
                         </form>
+                        Not a member ? <Link to="/">Sign In</Link>
                     </div>
                 </div>
             </div>)
     }
 }
-
 export default Login
